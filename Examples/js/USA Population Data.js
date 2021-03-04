@@ -4,7 +4,12 @@
 
     // Define the schema
     myConnector.getSchema = function(schemaCallback) {
-        var cols = [ 
+        var cols = [
+        //{
+            //id: "ID Nation",
+            //alias: "ID",
+            //dataType: tableau.dataTypeEnum.string
+        //}, 
         {
             id: "Nation",
             alias: "Nation",
@@ -37,6 +42,7 @@
             // Iterate over the JSON object
             for (var i = 0, len = feat.length; i < len; i++) {
                 tableData.push({
+                    //"ID Nation": feat[i].ID_Nation,
                     "Nation": feat[i].Nation,
                     "Year": feat[i].Year,
                     "Population": feat[i].Population
@@ -49,4 +55,12 @@
     };
 
     tableau.registerConnector(myConnector);
+
+    // Create event listeners for when the user submits the form
+    $(document).ready(function() {
+        $("#submitButton").click(function() {
+            tableau.connectionName = "USA Population Data"; // This will be the data source name in Tableau
+            tableau.submit(); // This sends the connector object to Tableau
+        });
+    });
 })();
